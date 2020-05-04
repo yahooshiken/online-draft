@@ -3,6 +3,8 @@ import { Box, Heading, Button, Flex } from "rebass";
 import { Label, Input } from "@rebass/forms";
 import io from "socket.io-client";
 
+import { useSendRoomKey } from "../../domains/user/user_hooks";
+
 const Start: FC = () => {
   const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
   const [name, setName] = useState("");
@@ -20,9 +22,10 @@ const Start: FC = () => {
     });
   }, [socket]);
 
+  const { sendRoomKey } = useSendRoomKey(roomKey);
+
   const handleJoinRoom = () => {
-    console.log(roomKey);
-    socket?.emit("join_room", { value: roomKey });
+    sendRoomKey();
   };
 
   const handleSendMessage = () => {
