@@ -15,6 +15,10 @@ interface IJoinRoomData {
 
 app.use(express.static(path.join("..", "public")));
 
+app.get("*", (req: express.Request, res: express.Response) => {
+  res.sendFile(path.resolve(__dirname, "..", "..", "public", "index.html"));
+});
+
 io.on("connection", (socket: socketio.Socket) => {
   console.log("connected!");
   let roomKey: string = "";
