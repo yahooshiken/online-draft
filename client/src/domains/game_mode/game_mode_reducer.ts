@@ -12,8 +12,8 @@ const initialState: GameModeState = {
 
 export const gameModeReducer = reducerWithInitialState(initialState).case(
   gameModeActions.startGame,
-  (state, gameMode: GameMode) => ({
+  (state) => ({
     ...state,
-    gameMode,
+    gameMode: "picking",
   })
 );
