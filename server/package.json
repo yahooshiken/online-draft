@@ -8,11 +8,13 @@
     "dev:watch": "ts-node-dev --respawn src/index.ts"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/node": "^13.13.4",
+    "@types/socket.io": "^2.1.4",
     "ts-node": "^8.10.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
