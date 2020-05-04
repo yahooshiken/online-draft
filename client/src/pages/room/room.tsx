@@ -9,7 +9,7 @@ import { useStartGame } from "../../domains/game_mode/game_mode_hooks";
 
 const Room: FC = () => {
   const gameMode = useSelector(gameModeSelectors.getGameMode);
-  const { roomId } = useParams();
+  const { roomKey } = useParams();
   const { startGame } = useStartGame();
 
   const handleStartGame = () => {
