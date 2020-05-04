@@ -27,6 +27,13 @@ io.on("connection", (socket: socketio.Socket) => {
     socket.join(roomKey);
   });
 
+  socket.on("action", (action) => {
+    if (action.type === "SOCKET/JOIN_ROOM") {
+      const { roomKey } = action.payload;
+      socket.join(roomKey);
+    }
+  });
+
   // クライアントからのデータを受信する.
   socket.on("client_to_server", (data) => {
     console.log(roomKey, data.value);
