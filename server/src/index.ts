@@ -1,7 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
 import http from "http";
 import path from "path";
 import socketio from "socket.io";
+import userModel from "./models/userModel";
 
 const PORT = process.env.PORT || 1844;
 
@@ -9,32 +11,51 @@ const app: express.Express = express();
 const httpServer: http.Server = http.createServer(app);
 const io: socketio.Server = socketio(httpServer);
 
-interface IJoinRoomData {
-  value: string;
-}
-
+// Express
 app.use(express.static(path.join("..", "public")));
 
 app.get("*", (req: express.Request, res: express.Response) => {
   res.sendFile(path.resolve(__dirname, "..", "..", "public", "index.html"));
 });
 
+// Mongoose
+mongoose.connect("mongodb://127.0.0.1:27017/draft");
+const db = mongoose.connection;
+
+db.on("error", () => console.log("FAILED to connect to mongoose."));
+db.once("open", () => console.log("SUCCEED to connect to mongoose."));
+
+// Socket.io
 io.on("connection", (socket: socketio.Socket) => {
   console.log("connected!");
   let roomKey: string = "";
   let name: string = "";
 
-  // join to room.
-  socket.on("join_room", (data: IJoinRoomData) => {
-    roomKey = data.value;
-    console.log(`joined ${roomKey}`);
-    socket.join(roomKey);
-  });
-
   socket.on("action", (action) => {
     if (action.type === "SOCKET/JOIN_ROOM") {
-      const { roomKey } = action.payload;
+      const { roomKey, name } = action.payload;
       socket.join(roomKey);
+      const user = new userModel({ id: 1, roomKey, name });
+      user.save((err, result) => {
+        if (err) console.log("Cannot add new member");
+        else {
+          io.to(roomKey).emit("item_added", action.payload);
+          console.log("added");
+        }
+      });
+    }
+
+    if (action.type === "SOCKET/FETCH_USER_LIST") {
+      const { roomKey } = action.payload;
+      userModel.find({ roomKey }, (err, result) => {
+        if (err) console.log("Cannot get user list");
+        else {
+          io.to(roomKey).emit("action", {
+            type: "ACTIONS_FETCH_USER_LIST_SUCCESS",
+            payload: result,
+          });
+        }
+      });
     }
   });
 
