@@ -16,14 +16,19 @@
     "emotion-theming": "^10.0.27",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "rebass": "^4.0.7",
+    "redux": "^4.0.5",
     "socket.io-client": "^2.3.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "typescript-fsa": "^3.0.0",
+    "typescript-fsa-reducers": "^1.2.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
+    "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.5",
     "@types/rebass": "^4.0.5",
     "@types/rebass__forms": "^4.0.2",
@@ -31,6 +36,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript-prettier": "^2.1.1",
     "prettier": "^2.0.5",
+    "redux-devtools": "^3.5.0",
     "ts-loader": "^7.0.2",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
