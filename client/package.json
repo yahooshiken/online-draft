@@ -9,14 +9,24 @@
     "lint": "eslint --ext .ts,.tsx src/"
   },
   "dependencies": {
+    "@rebass/forms": "^4.0.6",
+    "@rebass/preset": "^4.0.5",
+    "@types/socket.io-client": "^1.4.32",
     "@types/webpack": "^4.41.12",
+    "emotion-theming": "^10.0.27",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "rebass": "^4.0.7",
+    "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/rebass": "^4.0.5",
+    "@types/rebass__forms": "^4.0.2",
     "@types/styled-components": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript-prettier": "^2.1.1",

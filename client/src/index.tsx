@@ -1,11 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
+import App from "./foundation/app";
 
 const root = document.getElementById("root");
 
-interface IAppProps {
-  appName: string;
-}
-const App = ({ appName }: IAppProps) => <div>{appName}</div>;
-
-render(<App appName="hello" />, root);
+render(<App />, root);
