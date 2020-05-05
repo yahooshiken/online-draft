@@ -9,7 +9,7 @@ export interface UserModel {
   roomKey: string;
   name: string;
   status: UserStatus;
-  selectedPlayer?: string;
+  selectedPlayerId?: string;
 }
 
 export interface UserListState {

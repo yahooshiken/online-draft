@@ -79,6 +79,14 @@ io.on("connection", (socket: socketio.Socket) => {
       });
     }
 
+    if (action.type === "SOCKET/TRANSITION_ANNOUNCING") {
+      const { roomKey } = action.payload;
+      io.to(roomKey).emit("action", {
+        type: "ACTIONS_TRANSITION_ANNOUNCING_SUCCESS",
+        payload: roomKey,
+      });
+    }
+
     if (action.type === "SOCKET/FETCH_PLAYER_LIST") {
       playerModel.find({}, (err, result) => {
         if (err) console.log("Cannot get player list");

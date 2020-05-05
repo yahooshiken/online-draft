@@ -12,6 +12,9 @@ export const socketActions = {
   transitionPicked: actionCreator<{ roomKey: string }>(
     "SOCKET/TRANSITION_PICKED"
   ),
+  transitionAnnouncing: actionCreator<{ roomKey: string }>(
+    "SOCKET/TRANSITION_ANNOUNCING"
+  ),
   fetchPlayerList: actionCreator<void>("SOCKET/FETCH_PLAYER_LIST"),
   changeStatus: actionCreator<{
     _id: string;

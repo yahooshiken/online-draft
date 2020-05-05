@@ -21,3 +21,13 @@ export const useTransitionPicked = (roomKey: string) => {
 
   return { transitionPicked };
 };
+
+export const useTransitionAnnouncing = (roomKey: string) => {
+  const dispatch = useDispatch();
+
+  const transitionAnnouncing = useCallback(() => {
+    dispatch(socketActions.transitionAnnouncing({ roomKey }));
+  }, [dispatch]);
+
+  return { transitionAnnouncing };
+};

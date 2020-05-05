@@ -10,7 +10,7 @@ const GameUserList: FC<Props> = ({ userList = [] }) => (
     <ul>
       {userList.map((user) => (
         <li key={user._id}>
-          {user.name} {user.status} {user.selectedPlayer}
+          {user.name} {user.status} {user.selectedPlayerId}
         </li>
       ))}
     </ul>

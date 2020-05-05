@@ -3,15 +3,19 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { gameModeSelectors } from "../../domains/game_mode/game_mode_selectors";
 
-import { BeforeStart } from "../../domains/game_mode/components/BeforeStart";
-import { Picking } from "../../domains/game_mode/components/Picking";
+import {
+  BeforeStart,
+  Picking,
+  Picked,
+  Announcing,
+} from "../../domains/game_mode/components";
+
 import {
   useStartGame,
   useTransitionPicked,
+  useTransitionAnnouncing,
 } from "../../domains/game_mode/game_mode_hooks";
 import { userListSelectors } from "../../domains/user_list/user_list_selectors";
-
-const Picked: FC = () => <div>hoge</div>;
 
 const Room: FC = () => {
   const gameMode = useSelector(gameModeSelectors.getGameMode);
@@ -19,6 +23,7 @@ const Room: FC = () => {
   const { roomKey } = useParams();
   const { startGame } = useStartGame(roomKey);
   const { transitionPicked } = useTransitionPicked(roomKey);
+  const { transitionAnnouncing } = useTransitionAnnouncing(roomKey);
 
   useEffect(() => {
     if (
@@ -28,11 +33,19 @@ const Room: FC = () => {
       transitionPicked();
   }, [userList]);
 
+  useEffect(() => {
+    if (gameMode === "picked") {
+      const timer = setTimeout(() => {
+        transitionAnnouncing();
+      }, 1200);
+
+      return () => clearTimeout(timer);
+    }
+  }, [gameMode]);
+
   const handleStartGame = () => {
     startGame();
   };
-
-  console.info(gameMode);
 
   switch (gameMode) {
     case "before_start":
@@ -43,6 +56,9 @@ const Room: FC = () => {
 
     case "picked":
       return <Picked />;
+
+    case "announcing":
+      return <Announcing />;
 
     default:
       return <div>room</div>;

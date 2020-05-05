@@ -18,4 +18,8 @@ export const gameModeReducer = reducerWithInitialState(initialState)
   .case(gameModeActions.transitionPickedSuccess, (state) => ({
     ...state,
     gameMode: "picked",
+  }))
+  .case(gameModeActions.transitionAnnouncingSuccess, (state) => ({
+    ...state,
+    gameMode: "announcing",
   }));
