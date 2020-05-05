@@ -16,6 +16,7 @@ import { useChangeStatus } from "../../../user/user_hooks";
 const Picking: FC = () => {
   const { roomKey } = useParams();
   const _id = useSelector(userSelectors.getId);
+  const name = useSelector(userSelectors.getName);
   const status = useSelector(userSelectors.getStatus);
   const userList = useSelector(userListSelectors.getUserList);
   const playerList = useSelector(playerListSelectors.getPlayerList);
@@ -41,7 +42,7 @@ const Picking: FC = () => {
 
   return (
     <div>
-      スタートしたよ．君のステータス：{status}
+      スタートしたよ．君{name}のステータス：{status}
       <GameUserList userList={userList} />
       <Label htmlFor="team">team</Label>
       <Select
