@@ -71,6 +71,14 @@ io.on("connection", (socket: socketio.Socket) => {
       });
     }
 
+    if (action.type === "SOCKET/TRANSITION_PICKED") {
+      const { roomKey } = action.payload;
+      io.to(roomKey).emit("action", {
+        type: "ACTIONS_TRANSITION_PICKED_SUCCESS",
+        payload: roomKey,
+      });
+    }
+
     if (action.type === "SOCKET/FETCH_PLAYER_LIST") {
       playerModel.find({}, (err, result) => {
         if (err) console.log("Cannot get player list");
@@ -86,7 +94,7 @@ io.on("connection", (socket: socketio.Socket) => {
     if (action.type === "SOCKET/CHANGE_STATUS") {
       const { _id, status, roomKey } = action.payload;
       console.log(_id, status, roomKey);
-      const user = userModel.findOneAndUpdate(
+      userModel.findOneAndUpdate(
         { _id },
         { status },
         { new: true },
@@ -95,6 +103,25 @@ io.on("connection", (socket: socketio.Socket) => {
           else {
             io.to(roomKey).emit("action", {
               type: "ACTIONS_CHANGE_STATUS_SUCCESS",
+              payload: result,
+            });
+          }
+        }
+      );
+    }
+
+    if (action.type === "SOCKET/SELECT_PLAYER") {
+      const { _id, playerId, roomKey } = action.payload;
+      userModel.findOneAndUpdate(
+        { _id },
+        { selectedPlayerId: playerId },
+        { new: true },
+        (err, result) => {
+          if (err) console.log("Cannot update status");
+          else {
+            console.log("result", result);
+            io.to(roomKey).emit("action", {
+              type: "ACTIONS_SELECT_PLAYER_SUCCESS",
               payload: result,
             });
           }

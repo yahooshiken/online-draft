@@ -11,7 +11,7 @@ import { userListSelectors } from "../../../user_list/user_list_selectors";
 import { playerListSelectors } from "../../../player_list/player_list_selectors";
 import { useFetchUserList } from "../../../user_list/user_list_hooks";
 import { useFetchPlayerList } from "../../../player_list/player_list_hooks";
-import { useChangeStatus } from "../../../user/user_hooks";
+import { useChangeStatus, useSelectPlayer } from "../../../user/user_hooks";
 
 const Picking: FC = () => {
   const { roomKey } = useParams();
@@ -23,9 +23,10 @@ const Picking: FC = () => {
   const { fetchUserList } = useFetchUserList(roomKey);
   const { fetchPlayerList } = useFetchPlayerList();
   const { changeStatus } = useChangeStatus();
+  const { selectPlayer } = useSelectPlayer();
 
   const [selectedTeam, setSelectedTeam] = useState("");
-  const [selectedPlayer, setSelectedPlayer] = useState("");
+  const [playerId, setPlayerId] = useState("");
 
   useEffect(() => {
     fetchUserList();
@@ -39,6 +40,11 @@ const Picking: FC = () => {
   const playerOptions = playerList.filter(
     (player) => player.team === selectedTeam
   );
+
+  const handleClick = () => {
+    changeStatus(_id, "selected", roomKey);
+    selectPlayer(_id, playerId, roomKey);
+  };
 
   return (
     <div>
@@ -61,19 +67,18 @@ const Picking: FC = () => {
         id="player"
         name="player"
         disabled={disabled}
-        value={selectedPlayer}
-        onChange={(e) => setSelectedPlayer(e.target.value)}
+        value={playerId}
+        onChange={(e) => {
+          setPlayerId(e.target.value);
+        }}
       >
         {playerOptions.map((player) => (
-          <option key={player._id}>
+          <option key={player._id} value={player._id}>
             {player.name} ({player.number})
           </option>
         ))}
       </Select>
-      <Button
-        disabled={disabled}
-        onClick={() => changeStatus(_id, "selected", roomKey)}
-      >
+      <Button disabled={disabled} onClick={handleClick}>
         指名する
       </Button>
     </div>

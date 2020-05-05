@@ -9,6 +9,7 @@ export interface UserModel {
   roomKey: string;
   name: string;
   status: UserStatus;
+  selectedPlayer?: string;
 }
 
 export interface UserListState {
@@ -30,4 +31,8 @@ export const userListReducer = reducerWithInitialState(initialState)
       ...state,
       userList: state.userList.map((u) => (u._id === user._id ? user : u)),
     };
-  });
+  })
+  .case(userActions.selectPlayerSuccess, (state, user) => ({
+    ...state,
+    userList: state.userList.map((u) => (u._id === user._id ? user : u)),
+  }));
