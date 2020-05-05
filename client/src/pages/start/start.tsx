@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, ChangeEvent } from "react";
-import { Box, Heading, Button, Flex } from "rebass";
+import { Box, Heading, Button, Flex, Text } from "rebass";
 import { Label, Input } from "@rebass/forms";
 import io from "socket.io-client";
 
@@ -12,7 +12,7 @@ const Start: FC = () => {
   const [roomKey, setRoomKey] = useState("");
 
   useEffect(() => {
-    const socketClient: SocketIOClient.Socket = io();
+    const socketClient: SocketIOClient.Socket = io("http://localhost:1844");
     setSocket(socketClient);
   }, []);
 
@@ -30,10 +30,6 @@ const Start: FC = () => {
     joinRoom(roomKey, name);
   };
 
-  const handleSendMessage = () => {
-    socket?.emit("client_to_server_broadcast", { value: name });
-  };
-
   const handleChangeRoomKey = (e: ChangeEvent<HTMLInputElement>) => {
     setRoomKey(e.currentTarget.value);
   };
@@ -44,43 +40,58 @@ const Start: FC = () => {
 
   return (
     <StartLayout>
-      <Box
-        color="white"
-        bg="primary"
-        sx={{
-          maxWidth: 512,
-          mx: "auto",
-          p: 3,
-        }}
-      >
-        <Heading fontSize={[5, 6, 7]}>Welcome.</Heading>
-        <Label htmlFor="roomKey">roomKey</Label>
-        <Input
-          id="roomKey"
-          name="roomKey"
-          type="text"
-          value={roomKey}
-          onChange={handleChangeRoomKey}
-        />
-        <Label htmlFor="name">name</Label>
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          value={name}
-          onChange={handleChangeName}
-        />
+      <Flex height="100%" alignItems="center" justifyContent="center">
+        <Box color="text" minWidth={400} px={3}>
+          <Heading fontSize={36} mb={4}>
+            Welcome to
+            <br /> Online Draft 👋
+          </Heading>
+          <Label htmlFor="roomKey" mb={1} color="gray">
+            ルーム番号
+          </Label>
+          <Input
+            id="roomKey"
+            name="roomKey"
+            type="text"
+            value={roomKey}
+            onChange={handleChangeRoomKey}
+            height={48}
+            sx={{ borderColor: "#aaaaaa" }}
+            mb={2}
+          />
+          <Label htmlFor="name" mb={1} color="gray">
+            チーム名
+          </Label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            value={name}
+            onChange={handleChangeName}
+            height={48}
+            mb={4}
+            sx={{ borderColor: "#aaaaaa" }}
+          />
 
-        <Flex justifyContent="flex-end" mt={4}>
-          <Button onClick={handleSendMessage} variant="secondary">
-            Send Name
+          <Button
+            onClick={handleJoinRoom}
+            variant="secondary"
+            width="100%"
+            mb={4}
+            sx={{ borderRadius: "20px" }}
+          >
+            ルームに参加
           </Button>
 
-          <Button onClick={handleJoinRoom} variant="secondary">
-            Join room
-          </Button>
-        </Flex>
-      </Box>
+          <Text color="gray">
+            Online Draftは開発中のサービスです．
+            <br />
+            いかなる不具合があっても，
+            <br />
+            開発者は一切責任を負いません．
+          </Text>
+        </Box>
+      </Flex>
     </StartLayout>
   );
 };
