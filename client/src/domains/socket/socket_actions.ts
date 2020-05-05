@@ -1,6 +1,6 @@
 import actionCreatorFactory from "typescript-fsa";
 import { UserStatus } from "../user_list/user_list_reducers";
-import { PlayerModel } from "../player_list/player_list_reducers";
+import { PlayerModel } from "../player_list/player_list_models";
 const actionCreator = actionCreatorFactory();
 
 export const socketActions = {
@@ -14,6 +14,9 @@ export const socketActions = {
   ),
   transitionAnnouncing: actionCreator<{ roomKey: string }>(
     "SOCKET/TRANSITION_ANNOUNCING"
+  ),
+  transitionAnnounced: actionCreator<{ roomKey: string }>(
+    "SOCKET/TRANSITION_ANNOUNCED"
   ),
   fetchPlayerList: actionCreator<void>("SOCKET/FETCH_PLAYER_LIST"),
   changeStatus: actionCreator<{

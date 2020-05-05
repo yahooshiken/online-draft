@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { userActions } from "./user_actions";
 import { socketActions } from "../socket/socket_actions";
 import { UserStatus } from "../user_list/user_list_reducers";
-import { PlayerModel } from "../player_list/player_list_reducers";
+import { PlayerModel } from "../player_list/player_list_models";
 
 export const useJoinRoom = () => {
   const dispatch = useDispatch();

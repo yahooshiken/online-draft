@@ -9,4 +9,7 @@ export const gameModeActions = {
   transitionAnnouncingSuccess: actionCreator<void>(
     "ACTIONS_TRANSITION_ANNOUNCING_SUCCESS"
   ),
+  transitionAnnouncedSuccess: actionCreator<void>(
+    "ACTIONS_TRANSITION_ANNOUNCED_SUCCESS"
+  ),
 };
