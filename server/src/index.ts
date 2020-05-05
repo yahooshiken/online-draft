@@ -30,12 +30,12 @@ db.once("open", () => console.log("SUCCEED to connect to mongoose."));
 io.on("connection", (socket: socketio.Socket) => {
   console.log("connected!");
   let roomKey: string = "";
-  let name: string = "";
 
   socket.on("action", (action) => {
     if (action.type === "SOCKET/JOIN_ROOM") {
       const { roomKey, name } = action.payload;
       socket.join(roomKey);
+
       const user = new userModel({ roomKey, name, status: "selecting" });
       user.save((err, result) => {
         if (err) console.log("Cannot add new member");
@@ -120,19 +120,6 @@ io.on("connection", (socket: socketio.Socket) => {
         }
       );
     }
-  });
-
-  // クライアントからのデータを受信する.
-  socket.on("client_to_server", (data) => {
-    console.log(roomKey, data.value);
-    io.to(roomKey).emit("server_to_client", { value: data.value });
-  });
-
-  socket.on("client_to_server_personal", (data) => {
-    const { id } = socket;
-    name = data.value;
-    const personalMessage = `You are ${name}`;
-    io.to(id).emit("server_to_client", { value: personalMessage });
   });
 
   socket.on("disconnect", () => {

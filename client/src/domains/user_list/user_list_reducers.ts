@@ -25,13 +25,10 @@ export const userListReducer = reducerWithInitialState(initialState)
     ...state,
     userList,
   }))
-  .case(userActions.changeStatusSuccess, (state, user) => {
-    console.log("user", user);
-    return {
-      ...state,
-      userList: state.userList.map((u) => (u._id === user._id ? user : u)),
-    };
-  })
+  .case(userActions.changeStatusSuccess, (state, user) => ({
+    ...state,
+    userList: state.userList.map((u) => (u._id === user._id ? user : u)),
+  }))
   .case(userActions.selectPlayerSuccess, (state, user) => ({
     ...state,
     userList: state.userList.map((u) => (u._id === user._id ? user : u)),

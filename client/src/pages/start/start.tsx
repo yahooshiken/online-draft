@@ -16,13 +16,6 @@ const Start: FC = () => {
     setSocket(socketClient);
   }, []);
 
-  useEffect(() => {
-    socket?.on("server_to_client", (data: { value: string }) => {
-      const msg = data.value;
-      console.warn(msg);
-    });
-  }, [socket]);
-
   const { joinRoom } = useJoinRoom();
 
   const handleJoinRoom = () => {
