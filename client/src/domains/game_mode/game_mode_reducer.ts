@@ -22,4 +22,8 @@ export const gameModeReducer = reducerWithInitialState(initialState)
   .case(gameModeActions.transitionAnnouncingSuccess, (state) => ({
     ...state,
     gameMode: "announcing",
+  }))
+  .case(gameModeActions.transitionAnnouncedSuccess, (state) => ({
+    ...state,
+    gameMode: "announced",
   }));

@@ -8,12 +8,14 @@ import {
   Picking,
   Picked,
   Announcing,
+  Announced,
 } from "../../domains/game_mode/components";
 
 import {
   useStartGame,
   useTransitionPicked,
   useTransitionAnnouncing,
+  useTransitionAnnounced,
 } from "../../domains/game_mode/game_mode_hooks";
 import { userListSelectors } from "../../domains/user_list/user_list_selectors";
 
@@ -24,6 +26,7 @@ const Room: FC = () => {
   const { startGame } = useStartGame(roomKey);
   const { transitionPicked } = useTransitionPicked(roomKey);
   const { transitionAnnouncing } = useTransitionAnnouncing(roomKey);
+  const { transitionAnnounced } = useTransitionAnnounced(roomKey);
 
   useEffect(() => {
     if (
@@ -47,6 +50,10 @@ const Room: FC = () => {
     startGame();
   };
 
+  const handleTransitionAnnounced = () => {
+    transitionAnnounced();
+  };
+
   switch (gameMode) {
     case "before_start":
       return <BeforeStart onClick={handleStartGame} />;
@@ -58,7 +65,10 @@ const Room: FC = () => {
       return <Picked />;
 
     case "announcing":
-      return <Announcing />;
+      return <Announcing onClick={handleTransitionAnnounced} />;
+
+    case "announced":
+      return <Announced />;
 
     default:
       return <div>room</div>;

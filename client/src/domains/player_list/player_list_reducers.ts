@@ -1,12 +1,6 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { playerListActions } from "./player_list_actions";
-
-export interface PlayerModel {
-  _id: string;
-  name: string;
-  team: string;
-  number: number;
-}
+import { PlayerModel } from "./player_list_models";
 
 export interface PlayerListState {
   playerList: Array<PlayerModel>;
