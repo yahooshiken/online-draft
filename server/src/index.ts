@@ -4,6 +4,7 @@ import http from "http";
 import path from "path";
 import socketio from "socket.io";
 import userModel from "./models/userModel";
+import playerModel from "./models/playerModel";
 
 const PORT = process.env.PORT || 1844;
 
@@ -40,7 +41,6 @@ io.on("connection", (socket: socketio.Socket) => {
         if (err) console.log("Cannot add new member");
         else {
           io.to(roomKey).emit("item_added", action.payload);
-          console.log("added");
         }
       });
     }
@@ -60,10 +60,18 @@ io.on("connection", (socket: socketio.Socket) => {
 
     if (action.type === "SOCKET/START_GAME") {
       const { roomKey } = action.payload;
-      console.info(roomKey);
       io.to(roomKey).emit("action", {
         type: "ACTIONS_START_GAME_SUCCESS",
         payload: roomKey,
+      });
+    }
+
+    if (action.type === "SOCKET/FETCH_PLAYER_LIST") {
+      playerModel.find({}, (err, result) => {
+        if (err) console.log("Cannot get player list");
+        else {
+          console.log(result);
+        }
       });
     }
   });
