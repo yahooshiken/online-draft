@@ -41,7 +41,8 @@ io.on("connection", (socket: socketio.Socket) => {
         if (err) console.log("Cannot add new member");
         else {
           console.log("result", result);
-          io.to(roomKey).emit("action", {
+          const socketId = socket.id;
+          io.to(socketId).emit("action", {
             type: "ACTIONS_JOIN_ROOM_SUCCESS",
             payload: result,
           });
