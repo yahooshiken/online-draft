@@ -1,12 +1,12 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { gameModeActions } from "./game_mode_actions";
+import { socketActions } from "../socket/socket_actions";
 
-export const useStartGame = () => {
+export const useStartGame = (roomKey: string) => {
   const dispatch = useDispatch();
 
   const startGame = useCallback(() => {
-    dispatch(gameModeActions.startGame());
+    dispatch(socketActions.startGame({ roomKey }));
   }, [dispatch]);
 
   return { startGame };

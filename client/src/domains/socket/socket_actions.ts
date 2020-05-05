@@ -6,4 +6,5 @@ export const socketActions = {
     "SOCKET/JOIN_ROOM"
   ),
   fetchUserList: actionCreator<{ roomKey: string }>("SOCKET/FETCH_USER_LIST"),
+  startGame: actionCreator<{ roomKey: string }>("SOCKET/START_GAME"),
 };
