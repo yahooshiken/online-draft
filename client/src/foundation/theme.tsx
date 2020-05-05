@@ -4,11 +4,11 @@ import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 export const theme = {
   colors: {
     text: "#0c0f0a",
-    background: "#fff",
+    background: "#ffffff",
     primary: "#fbff12",
     secondary: "#ff206e",
     muted: "#ffffff",
-    gray: "#d6d2d2",
+    gray: "#aaaaaa",
     highlight: "hsla(205, 100%, 40%, 0.125)",
   },
   fonts: {

@@ -128,13 +128,6 @@ io.on("connection", (socket: socketio.Socket) => {
     io.to(roomKey).emit("server_to_client", { value: data.value });
   });
 
-  // クライアントからのデータを受信氏，送信元以外に送信する.
-  socket.on("client_to_server_broadcast", (data) => {
-    socket.broadcast
-      .to(roomKey)
-      .emit("server_to_client", { value: data.value });
-  });
-
   socket.on("client_to_server_personal", (data) => {
     const { id } = socket;
     name = data.value;
