@@ -21,5 +21,8 @@ module.exports = {
 
   devServer: {
     contentBase: path.resolve(__dirname, "..", "public"),
+    historyApiFallback: {
+      rewrites: [{ from: /^\/*/, to: "/index.html" }],
+    },
   },
 };
