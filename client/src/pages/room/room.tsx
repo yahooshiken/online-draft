@@ -11,35 +11,27 @@ import {
   Announced,
 } from "../../domains/game_mode/components";
 
-import {
-  useStartGame,
-  useTransitionPicked,
-  useTransitionAnnouncing,
-  useTransitionAnnounced,
-} from "../../domains/game_mode/game_mode_hooks";
+import { useTransitionGameMode } from "../../domains/game_mode/game_mode_hooks";
 import { userListSelectors } from "../../domains/user_list/user_list_selectors";
 
 const Room: FC = () => {
   const gameMode = useSelector(gameModeSelectors.getGameMode);
   const userList = useSelector(userListSelectors.getUserList);
   const { roomKey } = useParams();
-  const { startGame } = useStartGame(roomKey);
-  const { transitionPicked } = useTransitionPicked(roomKey);
-  const { transitionAnnouncing } = useTransitionAnnouncing(roomKey);
-  const { transitionAnnounced } = useTransitionAnnounced(roomKey);
+  const { transitionGameMode } = useTransitionGameMode();
 
   useEffect(() => {
     if (
       gameMode === "picking" &&
       userList.every((user) => user.status === "selected")
     )
-      transitionPicked();
+      transitionGameMode(roomKey, "picked");
   }, [userList]);
 
   useEffect(() => {
     if (gameMode === "picked") {
       const timer = setTimeout(() => {
-        transitionAnnouncing();
+        transitionGameMode(roomKey, "announcing");
       }, 1200);
 
       return () => clearTimeout(timer);
@@ -47,11 +39,11 @@ const Room: FC = () => {
   }, [gameMode]);
 
   const handleStartGame = () => {
-    startGame();
+    transitionGameMode(roomKey, "picking");
   };
 
   const handleTransitionAnnounced = () => {
-    transitionAnnounced();
+    transitionGameMode(roomKey, "announced");
   };
 
   switch (gameMode) {

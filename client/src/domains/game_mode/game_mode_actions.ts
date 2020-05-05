@@ -1,15 +1,9 @@
 import actionCreatorFactory from "typescript-fsa";
+import { GameMode } from "./types";
 const actionCreator = actionCreatorFactory();
 
 export const gameModeActions = {
-  startGameSuccess: actionCreator<void>("ACTIONS_START_GAME_SUCCESS"),
-  transitionPickedSuccess: actionCreator<void>(
-    "ACTIONS_TRANSITION_PICKED_SUCCESS"
-  ),
-  transitionAnnouncingSuccess: actionCreator<void>(
-    "ACTIONS_TRANSITION_ANNOUNCING_SUCCESS"
-  ),
-  transitionAnnouncedSuccess: actionCreator<void>(
-    "ACTIONS_TRANSITION_ANNOUNCED_SUCCESS"
+  transitionGameModeSuccess: actionCreator<{ gameMode: GameMode }>(
+    "ACTIONS_TRANSITION_GAME_MODE_SUCCESS"
   ),
 };

@@ -63,35 +63,11 @@ io.on("connection", (socket: socketio.Socket) => {
       });
     }
 
-    if (action.type === "SOCKET/START_GAME") {
+    if (action.type === "SOCKET/TRANSITION_GAME_MODE") {
       const { roomKey } = action.payload;
       io.to(roomKey).emit("action", {
-        type: "ACTIONS_START_GAME_SUCCESS",
-        payload: roomKey,
-      });
-    }
-
-    if (action.type === "SOCKET/TRANSITION_PICKED") {
-      const { roomKey } = action.payload;
-      io.to(roomKey).emit("action", {
-        type: "ACTIONS_TRANSITION_PICKED_SUCCESS",
-        payload: roomKey,
-      });
-    }
-
-    if (action.type === "SOCKET/TRANSITION_ANNOUNCING") {
-      const { roomKey } = action.payload;
-      io.to(roomKey).emit("action", {
-        type: "ACTIONS_TRANSITION_ANNOUNCING_SUCCESS",
-        payload: roomKey,
-      });
-    }
-
-    if (action.type === "SOCKET/TRANSITION_ANNOUNCED") {
-      const { roomKey } = action.payload;
-      io.to(roomKey).emit("action", {
-        type: "ACTIONS_TRANSITION_ANNOUNCED_SUCCESS",
-        payload: roomKey,
+        type: "ACTIONS_TRANSITION_GAME_MODE_SUCCESS",
+        payload: action.payload,
       });
     }
 

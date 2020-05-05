@@ -1,43 +1,17 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { socketActions } from "../socket/socket_actions";
+import { GameMode } from "./types";
 
-export const useStartGame = (roomKey: string) => {
+export const useTransitionGameMode = () => {
   const dispatch = useDispatch();
 
-  const startGame = useCallback(() => {
-    dispatch(socketActions.startGame({ roomKey }));
-  }, [dispatch]);
+  const transitionGameMode = useCallback(
+    (roomKey: string, gameMode: GameMode) => {
+      dispatch(socketActions.transitionGameMode({ roomKey, gameMode }));
+    },
+    [dispatch]
+  );
 
-  return { startGame };
-};
-
-export const useTransitionPicked = (roomKey: string) => {
-  const dispatch = useDispatch();
-
-  const transitionPicked = useCallback(() => {
-    dispatch(socketActions.transitionPicked({ roomKey }));
-  }, [dispatch]);
-
-  return { transitionPicked };
-};
-
-export const useTransitionAnnouncing = (roomKey: string) => {
-  const dispatch = useDispatch();
-
-  const transitionAnnouncing = useCallback(() => {
-    dispatch(socketActions.transitionAnnouncing({ roomKey }));
-  }, [dispatch]);
-
-  return { transitionAnnouncing };
-};
-
-export const useTransitionAnnounced = (roomKey: string) => {
-  const dispatch = useDispatch();
-
-  const transitionAnnounced = useCallback(() => {
-    dispatch(socketActions.transitionAnnounced({ roomKey }));
-  }, [dispatch]);
-
-  return { transitionAnnounced };
+  return { transitionGameMode };
 };
