@@ -36,11 +36,15 @@ io.on("connection", (socket: socketio.Socket) => {
     if (action.type === "SOCKET/JOIN_ROOM") {
       const { roomKey, name } = action.payload;
       socket.join(roomKey);
-      const user = new userModel({ id: 1, roomKey, name });
+      const user = new userModel({ roomKey, name, status: "selecting" });
       user.save((err, result) => {
         if (err) console.log("Cannot add new member");
         else {
-          io.to(roomKey).emit("item_added", action.payload);
+          console.log("result", result);
+          io.to(roomKey).emit("action", {
+            type: "ACTIONS_JOIN_ROOM_SUCCESS",
+            payload: result,
+          });
         }
       });
     }
@@ -76,6 +80,9 @@ io.on("connection", (socket: socketio.Socket) => {
           });
         }
       });
+    }
+
+    if (action.type === "SOCKET/CHANGE_STATUS") {
     }
   });
 

@@ -2,20 +2,25 @@ import React, { FC, useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Button } from "rebass";
 import { Label, Select } from "@rebass/forms";
 
 import { GameUserList } from "../../../user_list/components/GameUserList";
+import { userSelectors } from "../../../user/user_selectors";
 import { userListSelectors } from "../../../user_list/user_list_selectors";
 import { playerListSelectors } from "../../../player_list/player_list_selectors";
 import { useFetchUserList } from "../../../user_list/user_list_hooks";
 import { useFetchPlayerList } from "../../../player_list/player_list_hooks";
+import { useChangeStatus } from "../../../user/user_hooks";
 
 const Picking: FC = () => {
   const { roomKey } = useParams();
+  const status = useSelector(userSelectors.getStatus);
   const userList = useSelector(userListSelectors.getUserList);
   const playerList = useSelector(playerListSelectors.getPlayerList);
   const { fetchUserList } = useFetchUserList(roomKey);
   const { fetchPlayerList } = useFetchPlayerList();
+  const { changeStatus } = useChangeStatus();
 
   const [selectedTeam, setSelectedTeam] = useState("");
   const [selectedPlayer, setSelectedPlayer] = useState("");
@@ -25,6 +30,7 @@ const Picking: FC = () => {
     fetchPlayerList();
   }, []);
 
+  const disabled = status !== "selecting";
   const teamOptions = playerList
     .map(({ team }) => team)
     .filter((team, index, array) => array.indexOf(team) === index);
@@ -34,12 +40,13 @@ const Picking: FC = () => {
 
   return (
     <div>
-      スタートしたよ
+      スタートしたよ．君のステータス：{status}
       <GameUserList userList={userList} />
       <Label htmlFor="team">team</Label>
       <Select
         id="team"
         name="team"
+        disabled={disabled}
         value={selectedTeam}
         onChange={(e) => setSelectedTeam(e.target.value)}
       >
@@ -51,6 +58,7 @@ const Picking: FC = () => {
       <Select
         id="player"
         name="player"
+        disabled={disabled}
         value={selectedPlayer}
         onChange={(e) => setSelectedPlayer(e.target.value)}
       >
@@ -60,6 +68,9 @@ const Picking: FC = () => {
           </option>
         ))}
       </Select>
+      <Button disabled={disabled} onClick={() => changeStatus("selected")}>
+        指名する
+      </Button>
     </div>
   );
 };
