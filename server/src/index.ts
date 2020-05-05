@@ -50,6 +50,11 @@ io.on("connection", (socket: socketio.Socket) => {
       });
     }
 
+    if (action.type === "SOCKET/REJOIN_ROOM") {
+      const { roomKey } = action.payload;
+      socket.join(roomKey);
+    }
+
     if (action.type === "SOCKET/FETCH_USER_LIST") {
       const { roomKey } = action.payload;
       userModel.find({ roomKey }, (err, result) => {
