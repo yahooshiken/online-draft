@@ -15,7 +15,6 @@ type Props = {
 const Announcing: FC<Props> = ({ onClick }) => {
   const { roomKey } = useParams();
   const userList = useSelector(userListSelectors.getUserList);
-  const { fetchUserList } = useFetchUserList(roomKey);
   const { findPlayerById } = useFindPlayerById();
 
   const [showIndex, setShowIndex] = useState(0);
@@ -29,6 +28,8 @@ const Announcing: FC<Props> = ({ onClick }) => {
 
     return () => clearInterval(interval);
   }, []);
+
+  console.info({ showIndex });
 
   return (
     <div>
@@ -44,7 +45,9 @@ const Announcing: FC<Props> = ({ onClick }) => {
           </li>
         ) : null;
       })}
-      <Button onClick={onClick}>次へ</Button>
+      <Button onClick={onClick}>
+        {showIndex < userList.length ? "結果発表中..." : "次へ"}
+      </Button>
     </div>
   );
 };

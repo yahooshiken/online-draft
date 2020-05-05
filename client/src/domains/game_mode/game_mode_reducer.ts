@@ -10,20 +10,10 @@ const initialState: GameModeState = {
   gameMode: "before_start",
 };
 
-export const gameModeReducer = reducerWithInitialState(initialState)
-  .case(gameModeActions.startGameSuccess, (state) => ({
+export const gameModeReducer = reducerWithInitialState(initialState).case(
+  gameModeActions.transitionGameModeSuccess,
+  (state, { gameMode }) => ({
     ...state,
-    gameMode: "picking",
-  }))
-  .case(gameModeActions.transitionPickedSuccess, (state) => ({
-    ...state,
-    gameMode: "picked",
-  }))
-  .case(gameModeActions.transitionAnnouncingSuccess, (state) => ({
-    ...state,
-    gameMode: "announcing",
-  }))
-  .case(gameModeActions.transitionAnnouncedSuccess, (state) => ({
-    ...state,
-    gameMode: "announced",
-  }));
+    gameMode,
+  })
+);

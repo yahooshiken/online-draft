@@ -1,6 +1,7 @@
 import actionCreatorFactory from "typescript-fsa";
 import { UserStatus } from "../user_list/user_list_reducers";
 import { PlayerModel } from "../player_list/player_list_models";
+import { GameMode } from "../game_mode/types";
 const actionCreator = actionCreatorFactory();
 
 export const socketActions = {
@@ -8,15 +9,8 @@ export const socketActions = {
     "SOCKET/JOIN_ROOM"
   ),
   fetchUserList: actionCreator<{ roomKey: string }>("SOCKET/FETCH_USER_LIST"),
-  startGame: actionCreator<{ roomKey: string }>("SOCKET/START_GAME"),
-  transitionPicked: actionCreator<{ roomKey: string }>(
-    "SOCKET/TRANSITION_PICKED"
-  ),
-  transitionAnnouncing: actionCreator<{ roomKey: string }>(
-    "SOCKET/TRANSITION_ANNOUNCING"
-  ),
-  transitionAnnounced: actionCreator<{ roomKey: string }>(
-    "SOCKET/TRANSITION_ANNOUNCED"
+  transitionGameMode: actionCreator<{ roomKey: string; gameMode: GameMode }>(
+    "SOCKET/TRANSITION_GAME_MODE"
   ),
   fetchPlayerList: actionCreator<void>("SOCKET/FETCH_PLAYER_LIST"),
   changeStatus: actionCreator<{
