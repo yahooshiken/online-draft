@@ -6,4 +6,7 @@ export const gameModeActions = {
   transitionPickedSuccess: actionCreator<void>(
     "ACTIONS_TRANSITION_PICKED_SUCCESS"
   ),
+  transitionAnnouncingSuccess: actionCreator<void>(
+    "ACTIONS_TRANSITION_ANNOUNCING_SUCCESS"
+  ),
 };
