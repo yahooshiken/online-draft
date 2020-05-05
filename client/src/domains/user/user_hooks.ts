@@ -25,8 +25,9 @@ export const useChangeStatus = () => {
   const dispatch = useDispatch();
 
   const changeStatus = useCallback(
-    (status: UserStatus) => {
+    (_id: string, status: UserStatus, roomKey: string) => {
       dispatch(userActions.changeStatus(status));
+      dispatch(socketActions.changeStatus({ _id, status, roomKey }));
     },
     [dispatch]
   );

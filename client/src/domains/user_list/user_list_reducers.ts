@@ -1,5 +1,6 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { userListActions } from "./user_list_actions";
+import { userActions } from "../user/user_actions";
 
 export type UserStatus = "selecting" | "selected" | "picked";
 
@@ -18,12 +19,15 @@ const initialState: UserListState = {
   userList: [],
 };
 
-export const userListReducer = reducerWithInitialState(initialState).case(
-  userListActions.fetchUserListSuccess,
-  (state, userList) => {
+export const userListReducer = reducerWithInitialState(initialState)
+  .case(userListActions.fetchUserListSuccess, (state, userList) => ({
+    ...state,
+    userList,
+  }))
+  .case(userActions.changeStatusSuccess, (state, user) => {
+    console.log("user", user);
     return {
       ...state,
-      userList,
+      userList: state.userList.map((u) => (u._id === user._id ? user : u)),
     };
-  }
-);
+  });

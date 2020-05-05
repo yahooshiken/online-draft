@@ -83,6 +83,22 @@ io.on("connection", (socket: socketio.Socket) => {
     }
 
     if (action.type === "SOCKET/CHANGE_STATUS") {
+      const { _id, status, roomKey } = action.payload;
+      console.log(_id, status, roomKey);
+      const user = userModel.findOneAndUpdate(
+        { _id },
+        { status },
+        { new: true },
+        (err, result) => {
+          if (err) console.log("Cannot update status");
+          else {
+            io.to(roomKey).emit("action", {
+              type: "ACTIONS_CHANGE_STATUS_SUCCESS",
+              payload: result,
+            });
+          }
+        }
+      );
     }
   });
 
