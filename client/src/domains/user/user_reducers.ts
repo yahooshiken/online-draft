@@ -1,16 +1,19 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { userActions } from "./user_actions";
+import { UserStatus } from "../user_list/user_list_reducers";
 
 export interface UserState {
   roomKey: string;
   name: string;
+  status: UserStatus;
 }
 
 const initialState: UserState = {
   roomKey: "",
   name: "",
+  status: "selecting",
 };
 
 export const userReducer = reducerWithInitialState(initialState)
-  .case(userActions.setRoomKey, (state, roomKey) => ({ ...state, roomKey }))
-  .case(userActions.setName, (state, name) => ({ ...state, name }));
+  .case(userActions.joinRoomSuccess, (state, user) => ({ ...state, ...user }))
+  .case(userActions.changeStatus, (state, status) => ({ ...state, status }));

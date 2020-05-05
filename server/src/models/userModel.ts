@@ -6,6 +6,7 @@ const userSchema = new Schema(
   {
     roomKey: String,
     name: String,
+    status: String,
   },
   { collection: "UserList" }
 );
