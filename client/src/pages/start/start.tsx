@@ -1,20 +1,13 @@
 import React, { FC, useEffect, useState, ChangeEvent } from "react";
 import { Box, Heading, Button, Flex, Text } from "rebass";
 import { Label, Input } from "@rebass/forms";
-import io from "socket.io-client";
 
 import { StartLayout } from "../../foundation/layouts";
 import { useJoinRoom } from "../../domains/user/user_hooks";
 
 const Start: FC = () => {
-  const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
   const [name, setName] = useState("");
   const [roomKey, setRoomKey] = useState("");
-
-  useEffect(() => {
-    const socketClient: SocketIOClient.Socket = io("http://localhost:1844");
-    setSocket(socketClient);
-  }, []);
 
   const { joinRoom } = useJoinRoom();
 

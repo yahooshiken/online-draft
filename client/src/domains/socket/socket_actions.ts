@@ -8,6 +8,7 @@ export const socketActions = {
   joinRoom: actionCreator<{ roomKey: string; name: string }>(
     "SOCKET/JOIN_ROOM"
   ),
+  rejoinRoom: actionCreator<{ roomKey: string }>("SOCKET/REJOIN_ROOM"),
   fetchUserList: actionCreator<{ roomKey: string }>("SOCKET/FETCH_USER_LIST"),
   transitionGameMode: actionCreator<{ roomKey: string; gameMode: GameMode }>(
     "SOCKET/TRANSITION_GAME_MODE"

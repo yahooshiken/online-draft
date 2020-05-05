@@ -22,6 +22,19 @@ export const useJoinRoom = () => {
   return { joinRoom };
 };
 
+export const useRejoinRoom = () => {
+  const dispatch = useDispatch();
+
+  const rejoinRoom = useCallback(
+    async (roomKey: string) => {
+      dispatch(socketActions.rejoinRoom({ roomKey }));
+    },
+    [dispatch]
+  );
+
+  return { rejoinRoom };
+};
+
 export const useChangeStatus = () => {
   const dispatch = useDispatch();
 
