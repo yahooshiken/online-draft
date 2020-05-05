@@ -9,7 +9,10 @@ module.exports = {
   },
 
   module: {
-    rules: [{ test: /\.tsx?$/, loader: "ts-loader" }],
+    rules: [
+      { test: /\.tsx?$/, loader: "ts-loader" },
+      { test: /\.png$/, loader: "url-loader" },
+    ],
   },
 
   resolve: {
