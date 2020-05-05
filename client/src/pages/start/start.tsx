@@ -3,6 +3,7 @@ import { Box, Heading, Button, Flex } from "rebass";
 import { Label, Input } from "@rebass/forms";
 import io from "socket.io-client";
 
+import { StartLayout } from "../../foundation/layouts";
 import { useJoinRoom } from "../../domains/user/user_hooks";
 
 const Start: FC = () => {
@@ -42,43 +43,45 @@ const Start: FC = () => {
   };
 
   return (
-    <Box
-      color="white"
-      bg="primary"
-      sx={{
-        maxWidth: 512,
-        mx: "auto",
-        p: 3,
-      }}
-    >
-      <Heading fontSize={[5, 6, 7]}>Welcome.</Heading>
-      <Label htmlFor="roomKey">roomKey</Label>
-      <Input
-        id="roomKey"
-        name="roomKey"
-        type="text"
-        value={roomKey}
-        onChange={handleChangeRoomKey}
-      />
-      <Label htmlFor="name">name</Label>
-      <Input
-        id="name"
-        name="name"
-        type="text"
-        value={name}
-        onChange={handleChangeName}
-      />
+    <StartLayout>
+      <Box
+        color="white"
+        bg="primary"
+        sx={{
+          maxWidth: 512,
+          mx: "auto",
+          p: 3,
+        }}
+      >
+        <Heading fontSize={[5, 6, 7]}>Welcome.</Heading>
+        <Label htmlFor="roomKey">roomKey</Label>
+        <Input
+          id="roomKey"
+          name="roomKey"
+          type="text"
+          value={roomKey}
+          onChange={handleChangeRoomKey}
+        />
+        <Label htmlFor="name">name</Label>
+        <Input
+          id="name"
+          name="name"
+          type="text"
+          value={name}
+          onChange={handleChangeName}
+        />
 
-      <Flex justifyContent="flex-end" mt={4}>
-        <Button onClick={handleSendMessage} variant="secondary">
-          Send Name
-        </Button>
+        <Flex justifyContent="flex-end" mt={4}>
+          <Button onClick={handleSendMessage} variant="secondary">
+            Send Name
+          </Button>
 
-        <Button onClick={handleJoinRoom} variant="secondary">
-          Join room
-        </Button>
-      </Flex>
-    </Box>
+          <Button onClick={handleJoinRoom} variant="secondary">
+            Join room
+          </Button>
+        </Flex>
+      </Box>
+    </StartLayout>
   );
 };
 export default Start;

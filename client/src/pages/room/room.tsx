@@ -20,6 +20,10 @@ const Room: FC = () => {
   const { roomKey } = useParams();
   const { transitionGameMode } = useTransitionGameMode();
 
+  const handleStartGame = () => {
+    transitionGameMode(roomKey, "picking");
+  };
+
   useEffect(() => {
     if (
       gameMode === "picking" &&
@@ -37,10 +41,6 @@ const Room: FC = () => {
       return () => clearTimeout(timer);
     }
   }, [gameMode]);
-
-  const handleStartGame = () => {
-    transitionGameMode(roomKey, "picking");
-  };
 
   const handleTransitionAnnounced = () => {
     transitionGameMode(roomKey, "announced");
