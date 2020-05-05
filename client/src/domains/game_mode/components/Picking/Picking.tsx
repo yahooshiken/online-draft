@@ -15,6 +15,7 @@ import { useChangeStatus } from "../../../user/user_hooks";
 
 const Picking: FC = () => {
   const { roomKey } = useParams();
+  const _id = useSelector(userSelectors.getId);
   const status = useSelector(userSelectors.getStatus);
   const userList = useSelector(userListSelectors.getUserList);
   const playerList = useSelector(playerListSelectors.getPlayerList);
@@ -68,7 +69,10 @@ const Picking: FC = () => {
           </option>
         ))}
       </Select>
-      <Button disabled={disabled} onClick={() => changeStatus("selected")}>
+      <Button
+        disabled={disabled}
+        onClick={() => changeStatus(_id, "selected", roomKey)}
+      >
         指名する
       </Button>
     </div>
