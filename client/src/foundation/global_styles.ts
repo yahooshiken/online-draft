@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 
-  ul, ol {
+  ul, ol, li {
     list-style: none;
   }
 `;

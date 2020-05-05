@@ -26,7 +26,6 @@ const Start: FC = () => {
   const { joinRoom } = useJoinRoom();
 
   const handleJoinRoom = () => {
-    console.warn({ roomKey, name });
     joinRoom(roomKey, name);
   };
 
