@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Button } from "rebass";
 import { Label, Select } from "@rebass/forms";
 
+import { MainLayout } from "../../../../foundation/layouts";
 import { GameUserList } from "../../../user_list/components/GameUserList";
 import { userSelectors } from "../../../user/user_selectors";
 import { userListSelectors } from "../../../user_list/user_list_selectors";
@@ -47,7 +48,7 @@ const Picking: FC = () => {
   };
 
   return (
-    <div>
+    <MainLayout>
       スタートしたよ．君{name}のステータス：{status}
       <GameUserList userList={userList} />
       <Label htmlFor="team">team</Label>
@@ -81,7 +82,7 @@ const Picking: FC = () => {
       <Button disabled={disabled} onClick={handleClick}>
         指名する
       </Button>
-    </div>
+    </MainLayout>
   );
 };
 
