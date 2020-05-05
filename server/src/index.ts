@@ -57,6 +57,15 @@ io.on("connection", (socket: socketio.Socket) => {
         }
       });
     }
+
+    if (action.type === "SOCKET/START_GAME") {
+      const { roomKey } = action.payload;
+      console.info(roomKey);
+      io.to(roomKey).emit("action", {
+        type: "ACTIONS_START_GAME_SUCCESS",
+        payload: roomKey,
+      });
+    }
   });
 
   // クライアントからのデータを受信する.
