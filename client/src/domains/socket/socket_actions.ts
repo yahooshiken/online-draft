@@ -7,4 +7,5 @@ export const socketActions = {
   ),
   fetchUserList: actionCreator<{ roomKey: string }>("SOCKET/FETCH_USER_LIST"),
   startGame: actionCreator<{ roomKey: string }>("SOCKET/START_GAME"),
+  fetchPlayerList: actionCreator<void>("SOCKET/FETCH_PLAYER_LIST"),
 };
