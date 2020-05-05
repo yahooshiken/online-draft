@@ -5,11 +5,13 @@ import { socketIoMiddleware } from "./middlewares";
 import { GameModeState } from "../../domains/game_mode/game_mode_reducer";
 import { UserState } from "../../domains/user/user_reducers";
 import { UserListState } from "../../domains/user_list/user_list_reducers";
+import { PlayerListState } from "../../domains/player_list/player_list_reducers";
 
 export type AppState = {
   gameMode: GameModeState;
   user: UserState;
   userList: UserListState;
+  playerList: PlayerListState;
 };
 
 const enhancers =

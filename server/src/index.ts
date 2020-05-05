@@ -70,7 +70,10 @@ io.on("connection", (socket: socketio.Socket) => {
       playerModel.find({}, (err, result) => {
         if (err) console.log("Cannot get player list");
         else {
-          console.log(result);
+          io.emit("action", {
+            type: "ACTIONS_FETCH_PLAYER_LIST_SUCCESS",
+            payload: result,
+          });
         }
       });
     }
