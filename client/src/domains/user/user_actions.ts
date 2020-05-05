@@ -8,4 +8,7 @@ export const userActions = {
   changeStatusSuccess: actionCreator<UserModel>(
     "ACTIONS_CHANGE_STATUS_SUCCESS"
   ),
+  selectPlayerSuccess: actionCreator<UserModel>(
+    "ACTIONS_SELECT_PLAYER_SUCCESS"
+  ),
 };

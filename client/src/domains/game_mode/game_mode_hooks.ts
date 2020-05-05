@@ -11,3 +11,13 @@ export const useStartGame = (roomKey: string) => {
 
   return { startGame };
 };
+
+export const useTransitionPicked = (roomKey: string) => {
+  const dispatch = useDispatch();
+
+  const transitionPicked = useCallback(() => {
+    dispatch(socketActions.transitionPicked({ roomKey }));
+  }, [dispatch]);
+
+  return { transitionPicked };
+};
