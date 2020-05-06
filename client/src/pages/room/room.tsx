@@ -42,7 +42,14 @@ const Room: FC = () => {
     if (gameMode === "picked") {
       const timer = setTimeout(() => {
         transitionGameMode(roomKey, "announcing");
-      }, 1200);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+    if (gameMode === "announced") {
+      const timer = setTimeout(() => {
+        transitionGameMode(roomKey, "end");
+      }, 1500);
 
       return () => clearTimeout(timer);
     }
@@ -54,20 +61,17 @@ const Room: FC = () => {
 
   switch (gameMode) {
     case "before_start":
-    // return <BeforeStart onClick={handleStartGame} />;
+      return <BeforeStart onClick={handleStartGame} />;
     case "picking":
-    // return <Picking />;
+      return <Picking />;
     case "picked":
-    // return <Picked />;
-
+      return <Picked />;
     case "announcing":
       return <Announcing onClick={handleTransitionAnnounced} />;
-
     case "announced":
       return <Announced />;
-
     default:
-      return <div>room</div>;
+      return <div>ここまで</div>;
   }
 };
 
