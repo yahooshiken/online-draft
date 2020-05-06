@@ -54,8 +54,7 @@ const Room: FC = () => {
 
   switch (gameMode) {
     case "before_start":
-      return <BeforeStart onClick={handleStartGame} />;
-
+    // return <BeforeStart onClick={handleStartGame} />;
     case "picking":
       return <Picking />;
 

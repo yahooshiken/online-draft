@@ -11,8 +11,10 @@ const MainLayout: FC = (props) => {
   return (
     <>
       <Box bg="primary" p={32}>
-        <Flex>
-          <Text width="100%">Online Draft</Text>
+        <Flex alignItems="center">
+          <Text width="100%" fontWeight="bold" fontSize={20}>
+            Online Draft
+          </Text>
           <Flex width="100%" justifyContent="flex-end">
             <Text mr={4}>ルーム番号：{roomKey}</Text>
             <Text>チーム名：{name}</Text>
