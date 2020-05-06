@@ -38,7 +38,7 @@ const Announcing: FC<Props> = ({ onClick }) => {
 
   return (
     <MainLayout>
-      <Box width="50%" maxWidth={960} minWidth={600} mx="auto" mb={32} pb={32}>
+      <Box width="70%" maxWidth={960} minWidth={600} mx="auto" mb={32} pb={32}>
         <Heading textAlign="center" mb={32}>
           第１順希望選択選手の結果発表を行います．
         </Heading>
