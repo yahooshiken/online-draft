@@ -58,7 +58,7 @@ const Room: FC = () => {
     case "picking":
     // return <Picking />;
     case "picked":
-      return <Picked />;
+    // return <Picked />;
 
     case "announcing":
       return <Announcing onClick={handleTransitionAnnounced} />;
