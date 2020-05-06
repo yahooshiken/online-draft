@@ -56,8 +56,7 @@ const Room: FC = () => {
     case "before_start":
     // return <BeforeStart onClick={handleStartGame} />;
     case "picking":
-      return <Picking />;
-
+    // return <Picking />;
     case "picked":
       return <Picked />;
 

@@ -13,18 +13,12 @@ import { playerListSelectors } from "../../../player_list/player_list_selectors"
 import { useFetchUserList } from "../../../user_list/user_list_hooks";
 import { useFetchPlayerList } from "../../../player_list/player_list_hooks";
 import { useChangeStatus, useSelectPlayer } from "../../../user/user_hooks";
-import { UserModel } from "../../../user_list/user_list_reducers";
 
 const Picking: FC = () => {
   const { roomKey } = useParams();
   const _id = useSelector(userSelectors.getId);
   const status = useSelector(userSelectors.getStatus);
-  // const userList = useSelector(userListSelectors.getUserList);
-  const userList: UserModel[] = [
-    { _id: "hoge", name: "よろしく", status: "selecting", roomKey: "hoge" },
-    { _id: "hoge", name: "ごぶさた", status: "selected", roomKey: "hoge" },
-    { _id: "hoge", name: "はいはい", status: "picked", roomKey: "hoge" },
-  ];
+  const userList = useSelector(userListSelectors.getUserList);
   const playerList = useSelector(playerListSelectors.getPlayerList);
   const { fetchUserList } = useFetchUserList(roomKey);
   const { fetchPlayerList } = useFetchPlayerList();
