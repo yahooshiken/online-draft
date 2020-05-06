@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button } from "rebass";
+import { Button, Heading, Box, Flex } from "rebass";
 import { Label, Select } from "@rebass/forms";
 
 import { MainLayout } from "../../../../foundation/layouts";
@@ -13,13 +13,18 @@ import { playerListSelectors } from "../../../player_list/player_list_selectors"
 import { useFetchUserList } from "../../../user_list/user_list_hooks";
 import { useFetchPlayerList } from "../../../player_list/player_list_hooks";
 import { useChangeStatus, useSelectPlayer } from "../../../user/user_hooks";
+import { UserModel } from "../../../user_list/user_list_reducers";
 
 const Picking: FC = () => {
   const { roomKey } = useParams();
   const _id = useSelector(userSelectors.getId);
-  const name = useSelector(userSelectors.getName);
   const status = useSelector(userSelectors.getStatus);
-  const userList = useSelector(userListSelectors.getUserList);
+  // const userList = useSelector(userListSelectors.getUserList);
+  const userList: UserModel[] = [
+    { _id: "hoge", name: "よろしく", status: "selecting", roomKey: "hoge" },
+    { _id: "hoge", name: "ごぶさた", status: "selected", roomKey: "hoge" },
+    { _id: "hoge", name: "はいはい", status: "picked", roomKey: "hoge" },
+  ];
   const playerList = useSelector(playerListSelectors.getPlayerList);
   const { fetchUserList } = useFetchUserList(roomKey);
   const { fetchPlayerList } = useFetchPlayerList();
@@ -49,39 +54,76 @@ const Picking: FC = () => {
 
   return (
     <MainLayout>
-      スタートしたよ．君{name}のステータス：{status}
-      <GameUserList userList={userList} />
-      <Label htmlFor="team">team</Label>
-      <Select
-        id="team"
-        name="team"
-        disabled={disabled}
-        value={selectedTeam}
-        onChange={(e) => setSelectedTeam(e.target.value)}
+      <Box
+        width="50%"
+        maxWidth={960}
+        minWidth={600}
+        mx="auto"
+        mb={32}
+        pb={32}
+        sx={{ borderBottom: "solid 1px #aaaaaa" }}
       >
-        {teamOptions.map((team) => (
-          <option key={team}>{team}</option>
-        ))}
-      </Select>
-      <Label htmlFor="player">player</Label>
-      <Select
-        id="player"
-        name="player"
-        disabled={disabled}
-        value={playerId}
-        onChange={(e) => {
-          setPlayerId(e.target.value);
-        }}
-      >
-        {playerOptions.map((player) => (
-          <option key={player._id} value={player._id}>
-            {player.name} ({player.number})
-          </option>
-        ))}
-      </Select>
-      <Button disabled={disabled} onClick={handleClick}>
-        指名する
-      </Button>
+        <Heading textAlign="center" mb={32}>
+          第１順希望選択選手を指名してください．
+        </Heading>
+        <Flex justifyContent="space-between" mb={32}>
+          <Box width="46%">
+            <Label htmlFor="team" color="gray">
+              球団名
+            </Label>
+            <Select
+              id="team"
+              name="team"
+              disabled={disabled}
+              value={selectedTeam}
+              onChange={(e) => setSelectedTeam(e.target.value)}
+              height={48}
+              sx={{ borderColor: "solid 1px #aaaaaa" }}
+            >
+              {teamOptions.map((team) => (
+                <option key={team}>{team}</option>
+              ))}
+            </Select>
+          </Box>
+          <Box width="46%">
+            <Label htmlFor="player" color="gray">
+              選手名
+            </Label>
+            <Select
+              id="player"
+              name="player"
+              disabled={disabled}
+              value={playerId}
+              onChange={(e) => {
+                setPlayerId(e.target.value);
+              }}
+              height={48}
+            >
+              {playerOptions.map((player) => (
+                <option key={player._id} value={player._id}>
+                  {player.name} ({player.number})
+                </option>
+              ))}
+            </Select>
+          </Box>
+        </Flex>
+        <Box mx="auto" sx={{ textAlign: "center" }}>
+          <Button
+            variant="secondary"
+            disabled={disabled}
+            onClick={handleClick}
+            width={280}
+          >
+            指名する
+          </Button>
+        </Box>
+      </Box>
+      <Box width="40%" maxWidth={600} minWidth={400} mx="auto" py={32}>
+        <Heading textAlign="center" color="gray" mb={18} fontSize={20}>
+          他の参加者
+        </Heading>
+        <GameUserList userList={userList} />
+      </Box>
     </MainLayout>
   );
 };
