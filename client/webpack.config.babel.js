@@ -20,6 +20,7 @@ module.exports = {
   },
 
   devServer: {
+    port: 1844,
     contentBase: path.resolve(__dirname, "..", "public"),
     historyApiFallback: {
       rewrites: [{ from: /^\/*/, to: "/index.html" }],
