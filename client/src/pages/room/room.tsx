@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { gameModeSelectors } from "../../domains/game_mode/game_mode_selectors";
+import { gameSelectors } from "../../domains/game/game_selectors";
 
 import {
   BeforeStart,
@@ -9,16 +9,16 @@ import {
   Picked,
   Announcing,
   Announced,
-} from "../../domains/game_mode/components";
+} from "../../domains/game/components";
 
-import { useTransitionGameMode } from "../../domains/game_mode/game_mode_hooks";
+import { useTransitionGameMode } from "../../domains/game/game_hooks";
 import { useRejoinRoom } from "../../domains/user/user_hooks";
 import { userListSelectors } from "../../domains/user_list/user_list_selectors";
 
 const Room: FC = () => {
-  const gameMode = useSelector(gameModeSelectors.getGameMode);
+  const gameMode = useSelector(gameSelectors.getGameMode);
   const userList = useSelector(userListSelectors.getUserList);
-  const { roomKey } = useParams();
+  const { roomKey } = useParams<{roomKey: string}>();
   const { rejoinRoom } = useRejoinRoom();
   const { transitionGameMode } = useTransitionGameMode();
 

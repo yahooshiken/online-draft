@@ -2,13 +2,13 @@ import { createStore, compose, applyMiddleware } from "redux";
 import { rootReducer } from "./reducers";
 import { socketIoMiddleware } from "./middlewares";
 
-import { GameModeState } from "../../domains/game_mode/game_mode_reducer";
+import { GameState } from "../../domains/game/game_reducer";
 import { UserState } from "../../domains/user/user_reducers";
 import { UserListState } from "../../domains/user_list/user_list_reducers";
 import { PlayerListState } from "../../domains/player_list/player_list_reducers";
 
 export type AppState = {
-  gameMode: GameModeState;
+  game: GameState;
   user: UserState;
   userList: UserListState;
   playerList: PlayerListState;

@@ -7,6 +7,7 @@ import { Label, Select } from "@rebass/forms";
 
 import { MainLayout } from "../../../../foundation/layouts";
 import { GameUserList } from "../../../user_list/components/GameUserList";
+import { gameSelectors } from "../../../game/game_selectors";
 import { userSelectors } from "../../../user/user_selectors";
 import { userListSelectors } from "../../../user_list/user_list_selectors";
 import { playerListSelectors } from "../../../player_list/player_list_selectors";
@@ -15,11 +16,12 @@ import { useFetchPlayerList } from "../../../player_list/player_list_hooks";
 import { useChangeStatus, useSelectPlayer } from "../../../user/user_hooks";
 
 const Picking: FC = () => {
-  const { roomKey } = useParams();
+  const { roomKey } = useParams<{roomKey: string}>();
   const _id = useSelector(userSelectors.getId);
   const status = useSelector(userSelectors.getStatus);
   const userList = useSelector(userListSelectors.getUserList);
   const playerList = useSelector(playerListSelectors.getPlayerList);
+  const turn = useSelector(gameSelectors.getTurn);
   const { fetchUserList } = useFetchUserList(roomKey);
   const { fetchPlayerList } = useFetchPlayerList();
   const { changeStatus } = useChangeStatus();
@@ -58,7 +60,7 @@ const Picking: FC = () => {
         sx={{ borderBottom: "solid 1px #aaaaaa" }}
       >
         <Heading textAlign="center" mb={32}>
-          第１順希望選択選手を指名してください．
+          第{turn}順希望選択選手を指名してください．
         </Heading>
         <Flex justifyContent="space-between" mb={32}>
           <Box width="46%">

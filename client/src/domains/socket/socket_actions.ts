@@ -1,7 +1,6 @@
 import actionCreatorFactory from "typescript-fsa";
 import { UserStatus } from "../user_list/user_list_reducers";
-import { PlayerModel } from "../player_list/player_list_models";
-import { GameMode } from "../game_mode/types";
+import { GameMode } from "../game/types";
 const actionCreator = actionCreatorFactory();
 
 export const socketActions = {

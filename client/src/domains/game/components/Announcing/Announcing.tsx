@@ -1,11 +1,9 @@
 import React, { FC, useState, useEffect } from "react";
 import { Box, Flex, Text, Heading } from "rebass";
-import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "rebass";
-import { GameUserList } from "../../../user_list/components/GameUserList";
 
-import { useFetchUserList } from "../../../user_list/user_list_hooks";
+import { gameSelectors } from '../../../game/game_selectors'
 import { userListSelectors } from "../../../user_list/user_list_selectors";
 import { useFindPlayerById } from "../../../player_list/player_list_hooks";
 import { MainLayout } from "../../../../foundation/layouts";
@@ -16,6 +14,7 @@ type Props = {
 
 const Announcing: FC<Props> = ({ onClick }) => {
   const userList = useSelector(userListSelectors.getUserList);
+  const turn = useSelector(gameSelectors.getTurn);
 
   const { findPlayerById } = useFindPlayerById();
 
@@ -40,7 +39,7 @@ const Announcing: FC<Props> = ({ onClick }) => {
     <MainLayout>
       <Box width="70%" maxWidth={960} minWidth={600} mx="auto" mb={32} pb={32}>
         <Heading textAlign="center" mb={32}>
-          第１順希望選択選手の結果発表を行います．
+          第{turn}順希望選択選手の結果発表を行います．
         </Heading>
         <Flex justifyContent="space-between">
           <Box width="55%">
