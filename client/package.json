@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "b": "yarn build",
     "build": "webpack -p",
     "start": "webpack-dev-server --mode development --open",
     "lint": "eslint --ext .ts,.tsx src/"
