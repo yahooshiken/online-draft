@@ -8,7 +8,7 @@
     "dev:watch": "ts-node-dev --respawn src/index.ts"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongoose": "^5.9.25",
     "mongoose-auto-increment": "^5.0.1",
     "socket.io": "^2.4.0"
